@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+
+{% if user.is_authenticated %}
+    <p>Bienvenido {{ user.name }}!</p>
+{% else %}
+    <p>No has iniciado sesión.</p>
+{% endif %}
+
+
+<a href="/logout">cerrar sesion</a>
+<a href="/register">registrarse</a>
+<a href="/login">Iniciar sesion</a>
+<a href="/token">Generar token</a>
+<a href="/price">Ver precios</a>
+
+
+
+
+</body>
+</html>
