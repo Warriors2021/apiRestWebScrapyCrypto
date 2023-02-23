@@ -17,6 +17,17 @@ def index():
 
     return render_template("index.html", user = current_user)
 
+@app.route("/token")
+def consultarToken():
+
+    if current_user.is_authenticated:
+        tokens = Token.query.filter(Token.user.contains(current_user)).all()
+
+        return render_template('tokens.html', tokens=tokens)
+
+
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
