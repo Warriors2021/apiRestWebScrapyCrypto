@@ -4,7 +4,7 @@ from pymongo import MongoClient
 # Definir la clase "conexion_mongo"
 class conexion_mongo:
 
-    # Constructor de la clase
+    # Constructor de la clase, acepta tres argumentos opcionales (host, db y coleccion)
     def __init__(self, host: str = 'localhost', db: str = 'DbTest', coleccion: str = "ColeccionTest"):
         # Crear una instancia de MongoClient utilizando el valor proporcionado para el parámetro "host"
         self.host = MongoClient(host)
@@ -18,7 +18,7 @@ class conexion_mongo:
         # Guardar una referencia a la colección especificada en el parámetro "coleccion" en el atributo "coleccion" de la clase
         self.coleccion = self.db[coleccion]
 
-        #Guarda el nombre de la coleccion que se pasa por parametro al constructor
+        # Guarda el nombre de la colección que se pasa por parámetro al constructor en el atributo "nameCollection" de la clase
         self.nameCollection = coleccion
 
     # Función que devuelve la referencia a la colección guardada en el atributo "coleccion"
@@ -29,22 +29,22 @@ class conexion_mongo:
     def List_colecciones(self):
         return self.db.list_collection_names()
 
-    # Función para consultar datos.
+    # Función para consultar todos los datos de la colección guardada en el atributo "coleccion" y devuelve una lista con los documentos encontrados
     def ConsultarTodosLosDatos(self):
-
         lista = []
 
+        # Itera sobre cada documento de la colección utilizando el método "find"
+        # y agrega el documento a la lista creada anteriormente
         for dato in self.coleccion.find({},{"_id":0}):
-
             lista.append(dato)
 
         return lista
 
-    #Funcion para eliminar una coleccion
+    #Funcion para eliminar una colección de la base de datos
     def EliminarCollection(self):
-
-        #Elimina una coleccion de la base de datos
+        #Elimina una colección de la base de datos utilizando el método "drop_collection"
         self.db.drop_collection(self.nameCollection)
+
 
 
 

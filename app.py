@@ -1,14 +1,14 @@
 from config import AppFlask
-from views.view import DatosScrapy,register
+from views.view import DatosScrapy,index,consultarToken
 
-api = AppFlask.api
-app = AppFlask.app
+api = AppFlask().api
+app = AppFlask().app
 
 api.add_resource(DatosScrapy, "/price")
-app.route('/register', methods=["GET","POST"])(register)
+api.add_resource(consultarToken, "/token")
+app.route('/', methods=["GET"])(index)
 
 
 if __name__ == '__main__':
-    app.run()
-
+    app.run(host= app.config["HOST"],port=app.config["PORT"])
 
